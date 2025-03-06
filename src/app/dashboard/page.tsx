@@ -119,8 +119,13 @@ export default function DashboardPage() {
         </div>
 
       </main>
-      <Status />
+      <div className="flex justify-between px-25 gap-4">
       <IconButton />
+      <IconButton />
+      <IconButton />
+      <IconButton />  
+      </div>
+      <Status />
     </div>
 
   );
