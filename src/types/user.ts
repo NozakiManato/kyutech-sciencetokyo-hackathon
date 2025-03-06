@@ -6,5 +6,5 @@ export interface User {
   lastStatusChange: string;
   location: string;
   memoIds: string[];
-  expectedReturn?: string; // `?` を追加
+  expectedReturn?: string;
 }

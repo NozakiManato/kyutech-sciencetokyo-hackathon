@@ -79,8 +79,28 @@ export default function MemoConnections({
               onClick={() => onDeleteConnection(connection.id)}
               className="cursor-pointer"
             >
-              <circle r="10" fill="white" stroke="#3b82f6" />
-              <X size={12} x="-6" y="-6" color="#3b82f6" />
+              <g
+                transform={`translate(${
+                  (fromCenter.x + toCenter.x) / 2 + (nx * curveOffset) / 2
+                } ${(fromCenter.y + toCenter.y) / 2 + (ny * curveOffset) / 2})`}
+                className="cursor-pointer"
+              >
+                <circle
+                  r="14"
+                  fill="white"
+                  stroke="#3b82f6"
+                  onClick={() => onDeleteConnection(connection.id)} // 削除イベントを追加
+                  className="cursor-pointer"
+                />
+                <X
+                  size={16}
+                  x="-8"
+                  y="-8"
+                  color="#3b82f6"
+                  onClick={() => onDeleteConnection(connection.id)} // 削除イベントを追加
+                  className="cursor-pointer"
+                />
+              </g>
             </g>
           )}
         </g>
@@ -91,7 +111,7 @@ export default function MemoConnections({
   return (
     <svg
       ref={svgRef}
-      className="absolute top-0 left-0 w-full h-full pointer-events-none"
+      className="absolute top-0 left-0 w-full h-full pointer-events-auto"
       style={{ zIndex: 0 }}
     >
       <g className="pointer-events-auto">{renderConnections()}</g>

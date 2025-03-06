@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
+
 import {
   checkIn,
   checkOut,
