@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { ClipLoader } from "react-spinners";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -73,7 +74,11 @@ export default function DashboardPage() {
   };
 
   if (!isLoaded) {
-    return <p>Loading...</p>;
+    return (
+      <div className="h-screen w-screen flex justify-center items-center">
+        <ClipLoader />
+      </div>
+    );
   }
   if (!isSignedIn) {
     return <p>ログインしてください</p>;
