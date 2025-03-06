@@ -1,41 +1,48 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Home, ArrowLeft } from "lucide-react"
-import { getAllMembers } from "@/lib/actions"
-import type { User } from "@/lib/types"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft } from "lucide-react";
+import { getAllMembers } from "@/lib/actions";
+import type { User } from "@/lib/types";
+import Header from "@/components/header";
 
 export default function StatusPage() {
-  const [members, setMembers] = useState<User[]>([])
-  const [loading, setLoading] = useState(true)
+  const [members, setMembers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const allMembers = await getAllMembers()
-        setMembers(allMembers)
+        const allMembers = await getAllMembers();
+        setMembers(allMembers);
       } catch (error) {
-        console.error("Failed to fetch members:", error)
+        console.error("Failed to fetch members:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchMembers()
+    fetchMembers();
 
     // Auto-refresh every minute
-    const intervalId = setInterval(fetchMembers, 60000)
+    const intervalId = setInterval(fetchMembers, 60000);
 
-    return () => clearInterval(intervalId)
-  }, [])
+    return () => clearInterval(intervalId);
+  }, []);
 
-  const presentMembers = members.filter((member) => member.isCheckedIn)
-  const absentMembers = members.filter((member) => !member.isCheckedIn)
+  const presentMembers = members.filter((member) => member.isCheckedIn);
+  const absentMembers = members.filter((member) => !member.isCheckedIn);
 
   if (loading) {
     return (
@@ -45,22 +52,12 @@ export default function StatusPage() {
           <p className="mt-4">読み込み中...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-muted/40">
-      <header className="bg-primary text-primary-foreground py-4">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <h1 className="text-xl font-bold">研究室在室状況</h1>
-          <Link href="/">
-            <Button variant="ghost">
-              <Home className="h-4 w-4 mr-2" />
-              ホームへ
-            </Button>
-          </Link>
-        </div>
-      </header>
+      <Header />
 
       <main className="container mx-auto px-4 py-8">
         <div className="mb-4">
@@ -85,20 +82,29 @@ export default function StatusPage() {
               {presentMembers.length > 0 ? (
                 <div className="space-y-4">
                   {presentMembers.map((member, index) => (
-                    <div key={index} className="flex items-center gap-3 border-b pb-3">
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 border-b pb-3"
+                    >
                       <Avatar>
                         <AvatarImage src={member.avatarUrl} alt={member.name} />
-                        <AvatarFallback>{member.name.slice(0, 2)}</AvatarFallback>
+                        <AvatarFallback>
+                          {member.name.slice(0, 2)}
+                        </AvatarFallback>
                       </Avatar>
                       <div>
                         <p className="font-medium">{member.name}</p>
-                        <p className="text-sm text-muted-foreground">{member.role}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {member.role}
+                        </p>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-muted-foreground py-4">現在在室しているメンバーはいません</p>
+                <p className="text-center text-muted-foreground py-4">
+                  現在在室しているメンバーはいません
+                </p>
               )}
             </CardContent>
           </Card>
@@ -117,20 +123,29 @@ export default function StatusPage() {
               {absentMembers.length > 0 ? (
                 <div className="space-y-4">
                   {absentMembers.map((member, index) => (
-                    <div key={index} className="flex items-center gap-3 border-b pb-3">
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 border-b pb-3"
+                    >
                       <Avatar>
                         <AvatarImage src={member.avatarUrl} alt={member.name} />
-                        <AvatarFallback>{member.name.slice(0, 2)}</AvatarFallback>
+                        <AvatarFallback>
+                          {member.name.slice(0, 2)}
+                        </AvatarFallback>
                       </Avatar>
                       <div>
                         <p className="font-medium">{member.name}</p>
-                        <p className="text-sm text-muted-foreground">{member.role}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {member.role}
+                        </p>
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-center text-muted-foreground py-4">全メンバーが在室中です</p>
+                <p className="text-center text-muted-foreground py-4">
+                  全メンバーが在室中です
+                </p>
               )}
             </CardContent>
           </Card>
@@ -140,14 +155,17 @@ export default function StatusPage() {
           <Card>
             <CardContent className="p-6">
               <div className="text-center">
-                <p className="text-sm text-muted-foreground">最終更新: {new Date().toLocaleString("ja-JP")}</p>
-                <p className="text-xs text-muted-foreground mt-1">このページは1分ごとに自動更新されます</p>
+                <p className="text-sm text-muted-foreground">
+                  最終更新: {new Date().toLocaleString("ja-JP")}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  このページは1分ごとに自動更新されます
+                </p>
               </div>
             </CardContent>
           </Card>
         </div>
       </main>
     </div>
-  )
+  );
 }
-
