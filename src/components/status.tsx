@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import Link from "next/link";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -172,20 +173,22 @@ function ResearchLabSection({
 function MemberCard({ member }: { member: UserData }) {
   return (
     <div className="flex justify-between items-center p-3 rounded-md bg-background hover:bg-accent/50 transition-colors">
-      <div className="flex items-center gap-3 overflow-hidden">
-        <Avatar className="h-10 w-10 flex-shrink-0">
-          <AvatarImage src={member.avatarUrl} alt={member.name} />
-          <AvatarFallback>{member.name.slice(0, 2)}</AvatarFallback>
-        </Avatar>
-        <div className="min-w-0">
-          <p className="font-medium truncate">{member.name}</p>
-          <div className="flex flex-wrap gap-x-2 text-xs text-muted-foreground">
-            <span className="truncate max-w-[150px]">{member.email}</span>
-            <span className="hidden sm:inline">•</span>
-            <span>{member.role}</span>
+      <Link href={`/dashboard/${member.id}`}>
+        <div className="flex items-center gap-3 overflow-hidden">
+          <Avatar className="h-10 w-10 flex-shrink-0">
+            <AvatarImage src={member.avatarUrl} alt={member.name} />
+            <AvatarFallback>{member.name.slice(0, 2)}</AvatarFallback>
+          </Avatar>
+          <div className="min-w-0">
+            <p className="font-medium truncate">{member.name}</p>
+            <div className="flex flex-wrap gap-x-2 text-xs text-muted-foreground">
+              <span className="truncate max-w-[150px]">{member.email}</span>
+              <span className="hidden sm:inline">•</span>
+              <span>{member.role}</span>
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
       <Badge
         variant={member.isCheckedIn ? "default" : "outline"}
         className="ml-2 flex-shrink-0"
