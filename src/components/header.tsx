@@ -10,7 +10,9 @@ export default function Header() {
       </Link>
       <SignedOut>
         <SignInButton>
-          <Button variant="ghost">サインイン</Button>
+          <Button variant="ghost" className="cursor-pointer">
+            サインイン
+          </Button>
         </SignInButton>
       </SignedOut>
       <SignedIn>

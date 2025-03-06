@@ -29,7 +29,7 @@ export default function DashboardPage() {
   const router = useRouter();
   const { isLoaded, isSignedIn, user } = useUser();
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [isCheckedIn, setIsCheckedIn] = useState(false);
+  const [isCheckedIn, setIsCheckedIn] = useState(true);
   const [attendanceHistory, setAttendanceHistory] = useState<
     AttendanceRecord[]
   >([]);
