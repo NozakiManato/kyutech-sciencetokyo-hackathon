@@ -20,7 +20,6 @@ export default function DashboardPage() {
   const router = useRouter();
   const { isLoaded, isSignedIn, user } = useUser();
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [isCheckedIn, setIsCheckedIn] = useState(true);
   const [attendanceHistory, setAttendanceHistory] = useState<
     AttendanceRecord[]
   >([]);
@@ -39,7 +38,6 @@ export default function DashboardPage() {
 
     fetchUserData();
   }, [router]);
-
 
   if (!isLoaded) {
     return (
@@ -71,5 +69,6 @@ export default function DashboardPage() {
         <Status />
       </main>
      </div> 
+
   );
 }
