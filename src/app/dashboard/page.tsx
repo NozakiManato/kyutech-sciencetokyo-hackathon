@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
+
 import {
   Card,
   CardContent,
@@ -120,10 +121,10 @@ export default function DashboardPage() {
         </div>
       </main>
       <div className="container mx-auto flex justify-between gap-10">
-      <IconButton />
-      <IconButton />
-      <IconButton />
-      <IconButton />  
+        <IconButton />
+        <IconButton />
+        <IconButton />
+        <IconButton />
       </div>
       <Status />
     </div>
