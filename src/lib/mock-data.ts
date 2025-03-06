@@ -1,7 +1,7 @@
-import type { User, AdminUser, AttendanceRecord } from "./types"
+import type { UserData, AdminUser, AttendanceRecord } from "./types";
 
 // Mock users for demonstration
-export const mockUsers: User[] = [
+export const mockUsers: UserData[] = [
   {
     id: "user-1",
     name: "山田 太郎",
@@ -42,7 +42,7 @@ export const mockUsers: User[] = [
     avatarUrl: "/placeholder.svg?height=40&width=40",
     isCheckedIn: true,
   },
-]
+];
 
 // Mock admins for demonstration
 export const mockAdmins: AdminUser[] = [
@@ -53,7 +53,7 @@ export const mockAdmins: AdminUser[] = [
     avatarUrl: "/placeholder.svg?height=40&width=40",
     isAdmin: true,
   },
-]
+];
 
 // Generate some mock attendance records
 export const mockAttendanceRecords: AttendanceRecord[] = [
@@ -97,5 +97,4 @@ export const mockAttendanceRecords: AttendanceRecord[] = [
     checkIn: "10:00",
     checkOut: "17:30",
   },
-]
-
+];

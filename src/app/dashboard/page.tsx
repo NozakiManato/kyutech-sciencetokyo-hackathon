@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { ClipLoader } from "react-spinners";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -20,37 +21,28 @@ import {
   getUserInfo,
   getAttendanceHistory,
 } from "@/lib/actions";
-import type { AttendanceRecord, User } from "@/lib/types";
+import type { AttendanceRecord, UserData } from "@/lib/types";
 import Header from "@/components/header";
+import { useUser } from "@clerk/nextjs";
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [user, setUser] = useState<User | null>(null);
+  const { isLoaded, isSignedIn, user } = useUser();
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [isCheckedIn, setIsCheckedIn] = useState(false);
   const [attendanceHistory, setAttendanceHistory] = useState<
     AttendanceRecord[]
   >([]);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const userData = await getUserInfo();
-        if (!userData) {
-          router.push("/login");
-          return;
-        }
-
-        setUser(userData);
-        setIsCheckedIn(userData.isCheckedIn);
+        setUserData(userData);
 
         const history = await getAttendanceHistory();
         setAttendanceHistory(history);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
-        router.push("/login");
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -81,15 +73,15 @@ export default function DashboardPage() {
     }
   };
 
-  if (loading) {
+  if (!isLoaded) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full mx-auto"></div>
-          <p className="mt-4">読み込み中...</p>
-        </div>
+      <div className="h-screen w-screen flex justify-center items-center">
+        <ClipLoader />
       </div>
     );
+  }
+  if (!isSignedIn) {
+    return <p>ログインしてください</p>;
   }
 
   if (!user) {
@@ -106,12 +98,12 @@ export default function DashboardPage() {
             <CardContent className="p-6">
               <div className="flex items-center gap-4">
                 <Avatar className="h-16 w-16">
-                  <AvatarImage src={user.avatarUrl} alt={user.name} />
-                  <AvatarFallback>{user.name.slice(0, 2)}</AvatarFallback>
+                  <AvatarImage src={userData?.avatarUrl} alt={userData?.name} />
+                  <AvatarFallback>{userData?.name.slice(0, 2)}</AvatarFallback>
                 </Avatar>
                 <div>
-                  <h2 className="text-2xl font-bold">{user.name}</h2>
-                  <p className="text-muted-foreground">{user.role}</p>
+                  <h2 className="text-2xl font-bold">{userData?.name}</h2>
+                  <p className="text-muted-foreground">{userData?.role}</p>
                   <div className="mt-2">
                     {isCheckedIn ? (
                       <Badge className="bg-green-500">在室中</Badge>
@@ -241,8 +233,8 @@ export default function DashboardPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {user.labMembers && user.labMembers.length > 0 ? (
-                      user.labMembers.map((member, index) => (
+                    {userData?.labMembers && userData.labMembers.length > 0 ? (
+                      userData.labMembers.map((member, index) => (
                         <div
                           key={index}
                           className="flex justify-between items-center border-b pb-3"
