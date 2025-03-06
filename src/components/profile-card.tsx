@@ -246,8 +246,6 @@ export default function ProfileCard({
       ? techSkills
       : techSkills.filter((skill) => skill.category === activeTab);
 
-  const isEditable = currentUserId && currentUserId === profile.id;
-
   const handleProfileEdit = () => {
     setEditingProfile({ ...profile });
     setEditMode(true);
@@ -325,7 +323,7 @@ export default function ProfileCard({
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="pb-4">
           <div className="flex justify-end mb-2">
-            {isEditable && !editMode ? (
+            {!editMode ? (
               <Button variant="outline" size="sm" onClick={handleProfileEdit}>
                 <Edit className="h-3.5 w-3.5 mr-1.5" />
                 編集

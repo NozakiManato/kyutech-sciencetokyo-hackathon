@@ -1,15 +1,17 @@
-// app/dashboard/[userId]/page.tsx
 import { notFound } from "next/navigation";
 import ProfileCard from "@/components/profile-card";
 import { getUserById } from "@/lib/actions";
 import { currentUser } from "@clerk/nextjs/server";
 import { ProfileData } from "@/components/profile-card";
+import Header from "@/components/header";
+import { Card } from "@/components/ui/card";
+import IconButton from "@/components/ui/notebook";
+import Status from "@/components/status";
 
-export default async function UserDashboard({
-  params,
-}: {
-  params: { userId: string };
+export default async function UserDashboard(props: {
+  params: Promise<{ userId: string }>;
 }) {
+  const params = await props.params;
   const clerkUser = await currentUser();
   // 既にユーザーデータを取得
   const fetchedUserProfile = getUserById(params.userId);
@@ -59,9 +61,36 @@ export default async function UserDashboard({
   }
 
   return (
-    <ProfileCard
-      initialProfile={initialProfile}
-      currentUserId={clerkUser?.id || null}
-    />
+    <div className="min-h-screen bg-muted/40">
+      <Header />
+      <main className="container mx-auto py-2">
+        <ProfileCard
+          initialProfile={initialProfile}
+          currentUserId={clerkUser?.id || null}
+        />
+
+        <Card className="mt-2">
+          <div className="flex justify-evenly items-center gap-4 py-4">
+            <div className="flex flex-col gap-2 text-center">
+              <IconButton />
+              <p className="font-bold">研究</p>
+            </div>
+            <div className="flex flex-col gap-2 text-center">
+              <IconButton />
+              <p className="font-bold">開発</p>
+            </div>
+            <div className="flex flex-col gap-2 text-center">
+              <IconButton />
+              <p className="font-bold">タスク</p>
+            </div>
+            <div className="flex flex-col gap-2 text-center">
+              <IconButton />
+              <p className="font-bold">その他</p>
+            </div>
+          </div>
+        </Card>
+        <Status />
+      </main>
+    </div>
   );
 }
