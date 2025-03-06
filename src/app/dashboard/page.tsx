@@ -4,17 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Clock, Users, History } from "lucide-react";
-import {
   checkIn,
   checkOut,
   getUserInfo,
@@ -31,7 +20,6 @@ export default function DashboardPage() {
   const router = useRouter();
   const { isLoaded, isSignedIn, user } = useUser();
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [isCheckedIn, setIsCheckedIn] = useState(true);
   const [attendanceHistory, setAttendanceHistory] = useState<
     AttendanceRecord[]
   >([]);
@@ -50,30 +38,6 @@ export default function DashboardPage() {
 
     fetchUserData();
   }, [router]);
-
-  const handleCheckIn = async () => {
-    try {
-      await checkIn();
-      setIsCheckedIn(true);
-      // Refresh attendance history
-      const history = await getAttendanceHistory();
-      setAttendanceHistory(history);
-    } catch (error) {
-      console.error("Check-in failed:", error);
-    }
-  };
-
-  const handleCheckOut = async () => {
-    try {
-      await checkOut();
-      setIsCheckedIn(false);
-      // Refresh attendance history
-      const history = await getAttendanceHistory();
-      setAttendanceHistory(history);
-    } catch (error) {
-      console.error("Check-out failed:", error);
-    }
-  };
 
   if (!isLoaded) {
     return (
