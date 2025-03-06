@@ -24,6 +24,7 @@ import type { AttendanceRecord, UserData } from "@/lib/types";
 import Header from "@/components/header";
 import { useUser } from "@clerk/nextjs";
 import Status from "@/components/status"
+import IconButton from "@/components/ui/notebook";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -119,6 +120,7 @@ export default function DashboardPage() {
 
       </main>
       <Status />
+      <IconButton />
     </div>
 
   );
