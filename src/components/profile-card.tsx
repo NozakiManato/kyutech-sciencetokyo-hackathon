@@ -40,7 +40,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -70,6 +69,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Badge } from "./ui/badge";
 
 // アイコンマッピング
 const techIcons: Record<string, any> = {
@@ -152,6 +152,7 @@ interface ProfileData {
   avatar: string;
   location: string;
   email: string;
+  isCheckedIn: boolean;
   social: {
     github: string;
     twitter: string;
@@ -170,6 +171,7 @@ export default function ProfileCard() {
     avatar: user?.imageUrl || "/placeholder.svg?height=150&width=150",
     location: "日本, 東京",
     email: user?.primaryEmailAddress?.emailAddress || "メール未設定",
+    isCheckedIn: true,
     social: {
       github: "https://github.com/your-profile",
       twitter: "https://twitter.com/your-profile",
@@ -275,6 +277,12 @@ export default function ProfileCard() {
     setTechSkills(techSkills.filter((skill) => skill.id !== id));
   };
 
+  const toggleCheckedInStatus = () => {
+    if (!editMode) {
+      setProfile({ ...profile, isCheckedIn: !profile.isCheckedIn });
+    }
+  };
+
   const getIconForSkill = (skill: TechSkill) => {
     // アイコン名が指定されていて、マッピングに存在する場合はそれを使用
     if (skill.iconName && techIcons[skill.iconName]) {
@@ -332,14 +340,37 @@ export default function ProfileCard() {
                 <AvatarImage src={profile.avatar} alt={profile.name} />
                 <AvatarFallback>{profile.name.substring(0, 2)}</AvatarFallback>
               </Avatar>
-              <div className="space-y-1.5">
-                <CardTitle className="text-2xl">{profile.name}</CardTitle>
-                <CardDescription className="text-lg font-medium text-muted-foreground">
-                  {profile.title}
-                </CardDescription>
-                <p className="text-sm text-muted-foreground">
-                  {profile.location}
-                </p>
+              <div className="flex-1 space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-2xl">{profile.name}</CardTitle>
+                    <CardDescription className="text-lg font-medium text-muted-foreground">
+                      {profile.title}
+                    </CardDescription>
+                    <p className="text-sm text-muted-foreground">
+                      {profile.location}
+                    </p>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    onClick={toggleCheckedInStatus}
+                    className="p-0 h-auto ml-4"
+                  >
+                    {profile.isCheckedIn ? (
+                      <Badge className="text-base px-3 py-1.5 bg-green-500">
+                        在室中
+                      </Badge>
+                    ) : (
+                      <Badge
+                        variant="outline"
+                        className="text-base px-3 py-1.5"
+                      >
+                        不在
+                      </Badge>
+                    )}
+                  </Button>
+                </div>
                 <div className="flex flex-wrap gap-2 pt-2">
                   <Button variant="outline" size="sm" className="h-8 gap-1.5">
                     <Mail className="h-3.5 w-3.5" />
@@ -361,8 +392,8 @@ export default function ProfileCard() {
               </div>
             </div>
           ) : (
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">名前</Label>
                   <Input
@@ -480,28 +511,11 @@ export default function ProfileCard() {
                   />
                 </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="bio">自己紹介</Label>
-                <Textarea
-                  id="bio"
-                  value={editingProfile.bio}
-                  onChange={(e) =>
-                    setEditingProfile({
-                      ...editingProfile,
-                      bio: e.target.value,
-                    })
-                  }
-                  rows={3}
-                />
-              </div>
             </div>
           )}
-
-          {!editMode && <p className="text-sm mt-4">{profile.bio}</p>}
         </CardHeader>
-
-        <CardContent className="pb-2">
-          <div className="flex items-center justify-between mb-3">
+        <CardContent className="pb-1">
+          <div className="flex items-center justify-between mb-2">
             <h3 className="text-lg font-medium">技術スタック</h3>
             <Dialog open={isAddSkillOpen} onOpenChange={setIsAddSkillOpen}>
               <DialogTrigger asChild>
@@ -775,17 +789,6 @@ export default function ProfileCard() {
             </DialogContent>
           </Dialog>
         </CardContent>
-
-        <CardFooter className="flex justify-between pt-4">
-          <p className="text-xs text-muted-foreground">
-            最終更新:{" "}
-            {new Date().toLocaleDateString("ja-JP", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
-        </CardFooter>
       </Card>
     </TooltipProvider>
   );
