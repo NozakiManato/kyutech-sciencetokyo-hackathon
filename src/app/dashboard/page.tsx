@@ -23,8 +23,9 @@ import {
 import type { AttendanceRecord, UserData } from "@/lib/types";
 import Header from "@/components/header";
 import { useUser } from "@clerk/nextjs";
-import Status from "@/components/status"
+import Status from "@/components/status";
 import IconButton from "@/components/ui/notebook";
+import ProfileCard from "@/components/profile-card";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -117,11 +118,9 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
         </div>
-
       </main>
       <Status />
       <IconButton />
     </div>
-
   );
 }
