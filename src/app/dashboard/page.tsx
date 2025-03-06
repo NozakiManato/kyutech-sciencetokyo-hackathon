@@ -68,6 +68,7 @@ export default function DashboardPage() {
         </div>
         <Status />
       </main>
-    </div>
+     </div> 
+
   );
 }

@@ -44,7 +44,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@tailwindcss/oxide-win32-x64-msvc": "^4.0.10",
     "@tailwindcss/postcss": "^4",
     "@types/lodash": "^4.17.16",
     "@types/node": "^20",

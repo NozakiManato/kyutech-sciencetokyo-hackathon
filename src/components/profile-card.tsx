@@ -350,24 +350,25 @@ export default function ProfileCard() {
                       {profile.location}
                     </p>
                   </div>
-                  <div className="pr-20">
-                    <Button
-                      variant="ghost"
-                      size="lg"
-                      onClick={toggleCheckedInStatus}
-                      className="p-0 h-auto"
-                    >
-                      {profile.isCheckedIn ? (
-                        <Badge className=" px-10 py-5 bg-green-500">
-                          在室中
-                        </Badge>
-                      ) : (
-                        <Badge variant="outline" className=" px-10 py-5">
-                          不在
-                        </Badge>
-                      )}
-                    </Button>
-                  </div>
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    onClick={toggleCheckedInStatus}
+                    className="p-0 h-auto ml-4"
+                  >
+                    {profile.isCheckedIn ? (
+                      <Badge className="text-base px-3 py-1.5 bg-green-500">
+                        在室中
+                      </Badge>
+                    ) : (
+                      <Badge
+                        variant="outline"
+                        className="text-base px-3 py-1.5"
+                      >
+                        不在
+                      </Badge>
+                    )}
+                  </Button>
                 </div>
                 <div className="flex flex-wrap gap-2 pt-2">
                   <Button variant="outline" size="sm" className="h-8 gap-1.5">
