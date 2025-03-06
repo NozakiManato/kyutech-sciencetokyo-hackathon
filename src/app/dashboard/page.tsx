@@ -9,6 +9,8 @@ import { useUser } from "@clerk/nextjs";
 import Status from "@/components/status";
 import IconButton from "@/components/ui/notebook";
 import ProfileCard from "@/components/profile-card";
+import { Card } from "@/components/ui/card";
+import Header from "@/components/header";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -50,15 +52,30 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-muted/40">
-      <main className="container mx-auto px-4 py-8">
+      <Header />
+      <main className="container mx-auto py-2">
         <ProfileCard />
 
-        <div className="flex justify-between px-25 gap-4 py-4">
-          <IconButton />
-          <IconButton />
-          <IconButton />
-          <IconButton />
-        </div>
+        <Card className="mt-2">
+          <div className="flex justify-evenly items-center gap-4 py-4">
+            <div className="flex flex-col gap-2 text-center">
+              <IconButton />
+              <p className="font-bold">研究</p>
+            </div>
+            <div className="flex flex-col gap-2 text-center">
+              <IconButton />
+              <p className="font-bold">開発</p>
+            </div>
+            <div className="flex flex-col gap-2 text-center">
+              <IconButton />
+              <p className="font-bold">タスク</p>
+            </div>
+            <div className="flex flex-col gap-2 text-center">
+              <IconButton />
+              <p className="font-bold">その他</p>
+            </div>
+          </div>
+        </Card>
         <Status />
       </main>
     </div>

@@ -69,6 +69,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Badge } from "./ui/badge";
+import Link from "next/link";
 
 // アイコンマッピング
 const techIcons: Record<string, any> = {
@@ -167,8 +168,8 @@ export default function ProfileCard() {
 
   const defaultProfile: ProfileData = {
     name: user?.fullName || "ゲストユーザー",
-    title: "フルスタックエンジニア",
-    bio: "5年以上の経験を持つフルスタックエンジニア。Webアプリケーション開発とクラウドインフラに特化しています。",
+    title: "修士過程",
+    bio: "Next.jsを勉強中です",
     avatar: user?.imageUrl || "/placeholder.svg?height=150&width=150",
     location: "日本, 東京",
     email: user?.primaryEmailAddress?.emailAddress || "メール未設定",
@@ -176,8 +177,8 @@ export default function ProfileCard() {
     researchLab: "張研究室",
     universityName: "九工大",
     social: {
-      github: "https://github.com/your-profile",
-      twitter: "https://twitter.com/your-profile",
+      github: "https://github.com/NozakiManato",
+      twitter: "https://twitter.com/",
       linkedin: "https://linkedin.com/in/your-profile",
       website: "https://your-website.dev",
     },
@@ -351,9 +352,6 @@ export default function ProfileCard() {
                       {profile.title}
                     </CardDescription>
                     <p className="text-sm text-muted-foreground">
-                      {profile.location}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
                       {profile.universityName}・{profile.researchLab}
                     </p>
                   </div>
@@ -365,11 +363,11 @@ export default function ProfileCard() {
                       className="p-0 h-auto"
                     >
                       {profile.isCheckedIn ? (
-                        <Badge className=" px-10 py-5 bg-green-500">
+                        <Badge className="text-lg px-10 py-5 bg-green-500">
                           在室中
                         </Badge>
                       ) : (
-                        <Badge variant="outline" className=" px-10 py-5">
+                        <Badge variant="outline" className="text-lg px-10 py-5">
                           不在
                         </Badge>
                       )}
@@ -381,12 +379,24 @@ export default function ProfileCard() {
                     <Mail className="h-3.5 w-3.5" />
                     <span className="text-xs">{profile.email}</span>
                   </Button>
-                  <Button variant="outline" size="icon" className="h-8 w-8">
-                    <Github className="h-3.5 w-3.5" />
-                  </Button>
-                  <Button variant="outline" size="icon" className="h-8 w-8">
-                    <Twitter className="h-3.5 w-3.5" />
-                  </Button>
+                  <Link
+                    href={profile.social.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon" className="h-8 w-8">
+                      <Github className="h-3.5 w-3.5" />
+                    </Button>
+                  </Link>
+                  <Link
+                    href={profile.social.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon" className="h-8 w-8">
+                      <Twitter className="h-3.5 w-3.5" />
+                    </Button>
+                  </Link>
                   <Button variant="outline" size="icon" className="h-8 w-8">
                     <Linkedin className="h-3.5 w-3.5" />
                   </Button>
