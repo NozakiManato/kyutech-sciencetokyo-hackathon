@@ -14,11 +14,11 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
 import { getAllMembers } from "@/lib/actions";
-import type { User } from "@/lib/types";
+import type { UserData } from "@/lib/types";
 import Header from "@/components/header";
 
 export default function StatusPage() {
-  const [members, setMembers] = useState<User[]>([]);
+  const [members, setMembers] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
