@@ -124,8 +124,9 @@ export default function DashboardPage() {
       <IconButton />
       <IconButton />
       <IconButton />  
+      
       </div>
-      <Status />
+    <Status />
     </div>
   );
 }
