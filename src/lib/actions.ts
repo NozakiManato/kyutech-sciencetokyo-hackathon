@@ -22,6 +22,9 @@ export async function getUserInfo() {
       role: (user.publicMetadata.role as string) || "修士１年", // ClerkのPublicMetadataにroleがある想定
       avatarUrl: user.imageUrl,
       isCheckedIn: false, // 初期値はfalse（SupabaseやDBから取得する場合は変更）
+      researchLab: (user.publicMetadata.researchLab as string) || "張研究室",
+      universityName:
+        (user.publicMetadata.universityName as string) || "九工大",
     };
 
     return mappedUser;
@@ -136,6 +139,8 @@ export async function addNewMember(data: NewMemberData): Promise<void> {
     role: data.role,
     avatarUrl: "/placeholder.svg?height=40&width=40",
     isCheckedIn: false,
+    researchLab: data.researchLab,
+    universityName: data.universityName,
   };
 
   mockUsers.push(newUser);

@@ -43,7 +43,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -152,6 +152,8 @@ interface ProfileData {
   location: string;
   email: string;
   isCheckedIn: boolean;
+  researchLab: string;
+  universityName: string;
   social: {
     github: string;
     twitter: string;
@@ -171,6 +173,8 @@ export default function ProfileCard() {
     location: "日本, 東京",
     email: user?.primaryEmailAddress?.emailAddress || "メール未設定",
     isCheckedIn: true,
+    researchLab: "張研究室",
+    universityName: "九工大",
     social: {
       github: "https://github.com/your-profile",
       twitter: "https://twitter.com/your-profile",
@@ -349,6 +353,9 @@ export default function ProfileCard() {
                     <p className="text-sm text-muted-foreground">
                       {profile.location}
                     </p>
+                    <p className="text-sm text-muted-foreground">
+                      {profile.universityName}・{profile.researchLab}
+                    </p>
                   </div>
                   <div className="pr-20">
                     <Button
@@ -440,6 +447,32 @@ export default function ProfileCard() {
                       setEditingProfile({
                         ...editingProfile,
                         email: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="universityName">学校名</Label>
+                  <Input
+                    id="universityName"
+                    value={editingProfile.universityName}
+                    onChange={(e) =>
+                      setEditingProfile({
+                        ...editingProfile,
+                        universityName: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="universityName">研究室名</Label>
+                  <Input
+                    id="researchLab"
+                    value={editingProfile.researchLab}
+                    onChange={(e) =>
+                      setEditingProfile({
+                        ...editingProfile,
+                        researchLab: e.target.value,
                       })
                     }
                   />
@@ -622,14 +655,6 @@ export default function ProfileCard() {
             className="w-full"
             onValueChange={setActiveTab}
           >
-            <TabsList className="mb-4 w-full justify-start">
-              <TabsTrigger value="all">すべて</TabsTrigger>
-              <TabsTrigger value="frontend">フロントエンド</TabsTrigger>
-              <TabsTrigger value="backend">バックエンド</TabsTrigger>
-              <TabsTrigger value="database">データベース</TabsTrigger>
-              <TabsTrigger value="devops">DevOps</TabsTrigger>
-              <TabsTrigger value="other">その他</TabsTrigger>
-            </TabsList>
             <TabsContent value={activeTab} className="mt-0">
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                 {filteredSkills.map((skill) => (

@@ -3,14 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { ClipLoader } from "react-spinners";
-import {
-  checkIn,
-  checkOut,
-  getUserInfo,
-  getAttendanceHistory,
-} from "@/lib/actions";
+import { getUserInfo, getAttendanceHistory } from "@/lib/actions";
 import type { AttendanceRecord, UserData } from "@/lib/types";
-import Header from "@/components/header";
 import { useUser } from "@clerk/nextjs";
 import Status from "@/components/status";
 import IconButton from "@/components/ui/notebook";
@@ -56,7 +50,6 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-muted/40">
-      <Header />
       <main className="container mx-auto px-4 py-8">
         <ProfileCard />
 

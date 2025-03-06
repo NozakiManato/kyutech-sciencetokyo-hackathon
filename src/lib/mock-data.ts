@@ -9,6 +9,8 @@ export const mockUsers: UserData[] = [
     role: "博士課程",
     avatarUrl: "/placeholder.svg?height=40&width=40",
     isCheckedIn: true,
+    researchLab: "張研究室",
+    universityName: "九工大",
   },
   {
     id: "user-2",
@@ -17,6 +19,8 @@ export const mockUsers: UserData[] = [
     role: "修士課程",
     avatarUrl: "/placeholder.svg?height=40&width=40",
     isCheckedIn: false,
+    researchLab: "山田研究室",
+    universityName: "東科大",
   },
   {
     id: "user-3",
@@ -25,6 +29,8 @@ export const mockUsers: UserData[] = [
     role: "学部生",
     avatarUrl: "/placeholder.svg?height=40&width=40",
     isCheckedIn: true,
+    researchLab: "山脇研究室",
+    universityName: "九工大",
   },
   {
     id: "user-4",
@@ -33,6 +39,8 @@ export const mockUsers: UserData[] = [
     role: "助教",
     avatarUrl: "/placeholder.svg?height=40&width=40",
     isCheckedIn: false,
+    researchLab: "鈴木研究室",
+    universityName: "東科大",
   },
   {
     id: "user-5",
@@ -41,6 +49,8 @@ export const mockUsers: UserData[] = [
     role: "修士課程",
     avatarUrl: "/placeholder.svg?height=40&width=40",
     isCheckedIn: true,
+    researchLab: "芹川研究室",
+    universityName: "九工大",
   },
 ];
 
