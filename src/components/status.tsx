@@ -5,22 +5,20 @@ import {Tabs, TabsContent} from "@/components/ui/tabs"
 import {Search} from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useState, useEffect} from "react"
-import type {AttendanceRecord, User} from "@/lib/types"
+import type {AttendanceRecord, UserData} from "@/lib/types"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import {getAllMembers, getAllAttendanceRecords} from "@/lib/actions"
 import { useRouter } from "next/navigation"
-import Link from "next/link";
-import Header from "@/components/header";
 
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("")
-  const [members, setMembers] = useState<User[]>([])
+  const [members, setMembers] = useState<UserData[]>([])
   const filteredMembers = members.filter(
     (member) =>
       member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      member.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      member.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       member.role.toLowerCase().includes(searchTerm.toLowerCase()),
   )
   const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>([])
