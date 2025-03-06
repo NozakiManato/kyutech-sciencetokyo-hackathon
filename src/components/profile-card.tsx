@@ -7,7 +7,6 @@ import {
   Globe,
   Linkedin,
   Mail,
-  Twitter,
   Edit,
   Plus,
   Trash,
@@ -145,7 +144,8 @@ interface TechSkill {
   iconName?: string; // アイコン名（オプション）
 }
 
-interface ProfileData {
+export interface ProfileData {
+  id?: string;
   name: string;
   title: string;
   bio: string;
@@ -157,18 +157,26 @@ interface ProfileData {
   universityName: string;
   social: {
     github: string;
-    twitter: string;
+    X: string;
     linkedin: string;
     website: string;
   };
 }
 
-export default function ProfileCard() {
+interface ProfileCardProps {
+  initialProfile: ProfileData;
+  currentUserId: string | null;
+}
+
+export default function ProfileCard({
+  initialProfile,
+  currentUserId,
+}: ProfileCardProps) {
   const { user } = useUser();
 
   const defaultProfile: ProfileData = {
     name: user?.fullName || "ゲストユーザー",
-    title: "修士過程",
+    title: "修士課程",
     bio: "Next.jsを勉強中です",
     avatar: user?.imageUrl || "/placeholder.svg?height=150&width=150",
     location: "日本, 東京",
@@ -178,7 +186,7 @@ export default function ProfileCard() {
     universityName: "九工大",
     social: {
       github: "https://github.com/NozakiManato",
-      twitter: "https://twitter.com/",
+      X: "https://X.com/",
       linkedin: "https://linkedin.com/in/your-profile",
       website: "https://your-website.dev",
     },
@@ -237,6 +245,8 @@ export default function ProfileCard() {
     activeTab === "all"
       ? techSkills
       : techSkills.filter((skill) => skill.category === activeTab);
+
+  const isEditable = currentUserId && currentUserId === profile.id;
 
   const handleProfileEdit = () => {
     setEditingProfile({ ...profile });
@@ -315,7 +325,7 @@ export default function ProfileCard() {
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="pb-4">
           <div className="flex justify-end mb-2">
-            {!editMode ? (
+            {isEditable && !editMode ? (
               <Button variant="outline" size="sm" onClick={handleProfileEdit}>
                 <Edit className="h-3.5 w-3.5 mr-1.5" />
                 編集
@@ -389,12 +399,12 @@ export default function ProfileCard() {
                     </Button>
                   </Link>
                   <Link
-                    href={profile.social.twitter}
+                    href={profile.social.X}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <Button variant="outline" size="icon" className="h-8 w-8">
-                      <Twitter className="h-3.5 w-3.5" />
+                      <X className="h-3.5 w-3.5" />
                     </Button>
                   </Link>
                   <Button variant="outline" size="icon" className="h-8 w-8">
@@ -504,16 +514,16 @@ export default function ProfileCard() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="twitter">Twitter</Label>
+                  <Label htmlFor="X">X</Label>
                   <Input
-                    id="twitter"
-                    value={editingProfile.social.twitter}
+                    id="X"
+                    value={editingProfile.social.X}
                     onChange={(e) =>
                       setEditingProfile({
                         ...editingProfile,
                         social: {
                           ...editingProfile.social,
-                          twitter: e.target.value,
+                          X: e.target.value,
                         },
                       })
                     }

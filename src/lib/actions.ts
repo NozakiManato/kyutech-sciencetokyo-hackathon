@@ -41,6 +41,9 @@ export async function getAllMembers(): Promise<UserData[]> {
   // In a real app, you would fetch all members from the database
   return mockUsers;
 }
+export async function getUserById(userId: string): UserData | undefined {
+  return mockUsers.find((user) => user.id === userId);
+}
 
 export async function getAttendanceHistory(): Promise<AttendanceRecord[]> {
   // Simulate API delay

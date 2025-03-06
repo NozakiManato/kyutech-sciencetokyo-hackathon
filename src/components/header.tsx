@@ -1,8 +1,17 @@
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+"use client";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  useUser,
+} from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "./ui/button";
 
 export default function Header() {
+  const { user } = useUser();
+
   return (
     <header className="bg-primary text-primary-foreground py-4 px-4 flex items-center justify-between">
       <Link href={"/"}>
@@ -15,7 +24,7 @@ export default function Header() {
       </SignedOut>
       <SignedIn>
         <div className="flex ">
-          <Link href={"/dashboard"} className="mr-3">
+          <Link href={"/dashboard/${user.id}"} className="mr-3">
             <Button variant="ghost">ダッシュボード</Button>
           </Link>
           <UserButton />
