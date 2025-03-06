@@ -45,7 +45,6 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -183,33 +182,33 @@ export default function ProfileCard() {
   const defaultTechSkills: TechSkill[] = [
     { id: "1", name: "React", category: "frontend", iconName: "React" },
     { id: "2", name: "Next.js", category: "frontend", iconName: "Next.js" },
-    {
-      id: "3",
-      name: "TypeScript",
-      category: "frontend",
-      iconName: "TypeScript",
-    },
-    {
-      id: "4",
-      name: "Tailwind CSS",
-      category: "frontend",
-      iconName: "Tailwind CSS",
-    },
-    { id: "5", name: "HTML/CSS", category: "frontend", iconName: "HTML/CSS" },
+    // {
+    //   id: "3",
+    //   name: "TypeScript",
+    //   category: "frontend",
+    //   iconName: "TypeScript",
+    // },
+    { id: "3", name: "AWS", category: "devops", iconName: "AWS" },
+    // {
+    //   id: "4",
+    //   name: "Tailwind CSS",
+    //   category: "frontend",
+    //   iconName: "Tailwind CSS",
+    // },
+    // { id: "5", name: "HTML/CSS", category: "frontend", iconName: "HTML/CSS" },
     // { id: "6", name: "Node.js", category: "backend", iconName: "Node.js" },
     // { id: "7", name: "Express", category: "backend", iconName: "Express" },
-    // { id: "8", name: "Python", category: "backend", iconName: "Python" },
     // { id: "9", name: "Django", category: "backend", iconName: "Django" },
-    // {
-    //   id: "10",
-    //   name: "PostgreSQL",
-    //   category: "database",
-    //   iconName: "PostgreSQL",
-    // },
+    {
+      id: "4",
+      name: "PostgreSQL",
+      category: "database",
+      iconName: "PostgreSQL",
+    },
+    { id: "5", name: "Python", category: "backend", iconName: "Python" },
     // { id: "11", name: "MongoDB", category: "database", iconName: "MongoDB" },
     // { id: "12", name: "Redis", category: "database", iconName: "Redis" },
     // { id: "13", name: "Docker", category: "devops", iconName: "Docker" },
-    // { id: "14", name: "AWS", category: "devops", iconName: "AWS" },
     // { id: "15", name: "CI/CD", category: "devops", iconName: "CI/CD" },
     // { id: "16", name: "Git", category: "other", iconName: "Git" },
     // { id: "17", name: "GraphQL", category: "other", iconName: "GraphQL" },
@@ -351,25 +350,24 @@ export default function ProfileCard() {
                       {profile.location}
                     </p>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="lg"
-                    onClick={toggleCheckedInStatus}
-                    className="p-0 h-auto ml-4"
-                  >
-                    {profile.isCheckedIn ? (
-                      <Badge className="text-base px-3 py-1.5 bg-green-500">
-                        在室中
-                      </Badge>
-                    ) : (
-                      <Badge
-                        variant="outline"
-                        className="text-base px-3 py-1.5"
-                      >
-                        不在
-                      </Badge>
-                    )}
-                  </Button>
+                  <div className="pr-20">
+                    <Button
+                      variant="ghost"
+                      size="lg"
+                      onClick={toggleCheckedInStatus}
+                      className="p-0 h-auto"
+                    >
+                      {profile.isCheckedIn ? (
+                        <Badge className=" px-10 py-5 bg-green-500">
+                          在室中
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className=" px-10 py-5">
+                          不在
+                        </Badge>
+                      )}
+                    </Button>
+                  </div>
                 </div>
                 <div className="flex flex-wrap gap-2 pt-2">
                   <Button variant="outline" size="sm" className="h-8 gap-1.5">
