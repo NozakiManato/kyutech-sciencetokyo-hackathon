@@ -19,8 +19,8 @@ export async function getUserInfo() {
       id: user.id,
       name: user.fullName || "No Name",
       email: user.primaryEmailAddress?.emailAddress || "No Email",
-      role: (user.publicMetadata.role as string) || "Member", // ClerkのPublicMetadataにroleがある想定
-      avatarUrl: user.imageUrl || "/placeholder.svg",
+      role: (user.publicMetadata.role as string) || "修士１年", // ClerkのPublicMetadataにroleがある想定
+      avatarUrl: user.imageUrl,
       isCheckedIn: false, // 初期値はfalse（SupabaseやDBから取得する場合は変更）
     };
 
