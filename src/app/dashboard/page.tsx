@@ -119,7 +119,7 @@ export default function DashboardPage() {
           </Card>
         </div>
       </main>
-      <div className="flex justify-between px-25 gap-4">
+      <div className="container mx-auto flex justify-between gap-10">
       <IconButton />
       <IconButton />
       <IconButton />
