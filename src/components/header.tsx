@@ -10,13 +10,16 @@ export default function Header() {
       </Link>
       <SignedOut>
         <SignInButton>
-          <Button variant="ghost" className="cursor-pointer">
-            サインイン
-          </Button>
+          <Button variant="ghost">サインイン</Button>
         </SignInButton>
       </SignedOut>
       <SignedIn>
-        <UserButton />
+        <div className="flex ">
+          <Link href={"/dashboard"} className="mr-3">
+            <Button variant="ghost">ダッシュボード</Button>
+          </Link>
+          <UserButton />
+        </div>
       </SignedIn>
     </header>
   );
