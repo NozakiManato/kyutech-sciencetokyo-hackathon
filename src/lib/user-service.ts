@@ -9,6 +9,8 @@ const users: User[] = [
     isPresent: true,
     lastStatusChange: new Date().toISOString(),
     location: "オフィス",
+    researchLab: "張研究室",
+    universityName: "九工大",
     memoIds: ["1"],
   },
   {
@@ -19,6 +21,8 @@ const users: User[] = [
     lastStatusChange: new Date(Date.now() - 3600000).toISOString(), // 1時間前
     expectedReturn: new Date(Date.now() + 3600000).toISOString(), // 1時間後
     location: "外出中",
+    researchLab: "山田研究室",
+    universityName: "東科大",
     memoIds: ["2"],
   },
   {
@@ -28,6 +32,8 @@ const users: User[] = [
     isPresent: true,
     lastStatusChange: new Date().toISOString(),
     location: "会議室A",
+    researchLab: "山脇研究室",
+    universityName: "九工大",
     memoIds: ["3"],
   },
 ];

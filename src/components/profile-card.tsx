@@ -7,7 +7,6 @@ import {
   Globe,
   Linkedin,
   Mail,
-  Twitter,
   Edit,
   Plus,
   Trash,
@@ -43,7 +42,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -69,6 +68,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Badge } from "./ui/badge";
+import Link from "next/link";
 
 // アイコンマッピング
 const techIcons: Record<string, any> = {
@@ -144,7 +144,8 @@ interface TechSkill {
   iconName?: string; // アイコン名（オプション）
 }
 
-interface ProfileData {
+export interface ProfileData {
+  id?: string;
   name: string;
   title: string;
   bio: string;
@@ -152,28 +153,40 @@ interface ProfileData {
   location: string;
   email: string;
   isCheckedIn: boolean;
+  researchLab: string;
+  universityName: string;
   social: {
     github: string;
-    twitter: string;
+    X: string;
     linkedin: string;
     website: string;
   };
 }
 
-export default function ProfileCard() {
+interface ProfileCardProps {
+  initialProfile: ProfileData;
+  currentUserId: string | null;
+}
+
+export default function ProfileCard({
+  initialProfile,
+  currentUserId,
+}: ProfileCardProps) {
   const { user } = useUser();
 
   const defaultProfile: ProfileData = {
     name: user?.fullName || "ゲストユーザー",
-    title: "フルスタックエンジニア",
-    bio: "5年以上の経験を持つフルスタックエンジニア。Webアプリケーション開発とクラウドインフラに特化しています。",
+    title: "修士課程",
+    bio: "Next.jsを勉強中です",
     avatar: user?.imageUrl || "/placeholder.svg?height=150&width=150",
     location: "日本, 東京",
     email: user?.primaryEmailAddress?.emailAddress || "メール未設定",
     isCheckedIn: true,
+    researchLab: "張研究室",
+    universityName: "九工大",
     social: {
-      github: "https://github.com/your-profile",
-      twitter: "https://twitter.com/your-profile",
+      github: "https://github.com/NozakiManato",
+      X: "https://X.com/",
       linkedin: "https://linkedin.com/in/your-profile",
       website: "https://your-website.dev",
     },
@@ -347,40 +360,51 @@ export default function ProfileCard() {
                       {profile.title}
                     </CardDescription>
                     <p className="text-sm text-muted-foreground">
-                      {profile.location}
+                      {profile.universityName}・{profile.researchLab}
                     </p>
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="lg"
-                    onClick={toggleCheckedInStatus}
-                    className="p-0 h-auto ml-4"
-                  >
-                    {profile.isCheckedIn ? (
-                      <Badge className="text-base px-3 py-1.5 bg-green-500">
-                        在室中
-                      </Badge>
-                    ) : (
-                      <Badge
-                        variant="outline"
-                        className="text-base px-3 py-1.5"
-                      >
-                        不在
-                      </Badge>
-                    )}
-                  </Button>
+                  <div className="pr-20">
+                    <Button
+                      variant="ghost"
+                      size="lg"
+                      onClick={toggleCheckedInStatus}
+                      className="p-0 h-auto"
+                    >
+                      {profile.isCheckedIn ? (
+                        <Badge className="text-lg px-10 py-5 bg-green-500">
+                          在室中
+                        </Badge>
+                      ) : (
+                        <Badge variant="outline" className="text-lg px-10 py-5">
+                          不在
+                        </Badge>
+                      )}
+                    </Button>
+                  </div>
                 </div>
                 <div className="flex flex-wrap gap-2 pt-2">
                   <Button variant="outline" size="sm" className="h-8 gap-1.5">
                     <Mail className="h-3.5 w-3.5" />
                     <span className="text-xs">{profile.email}</span>
                   </Button>
-                  <Button variant="outline" size="icon" className="h-8 w-8">
-                    <Github className="h-3.5 w-3.5" />
-                  </Button>
-                  <Button variant="outline" size="icon" className="h-8 w-8">
-                    <Twitter className="h-3.5 w-3.5" />
-                  </Button>
+                  <Link
+                    href={profile.social.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon" className="h-8 w-8">
+                      <Github className="h-3.5 w-3.5" />
+                    </Button>
+                  </Link>
+                  <Link
+                    href={profile.social.X}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" size="icon" className="h-8 w-8">
+                      <X className="h-3.5 w-3.5" />
+                    </Button>
+                  </Link>
                   <Button variant="outline" size="icon" className="h-8 w-8">
                     <Linkedin className="h-3.5 w-3.5" />
                   </Button>
@@ -446,6 +470,32 @@ export default function ProfileCard() {
                   />
                 </div>
                 <div className="space-y-2">
+                  <Label htmlFor="universityName">学校名</Label>
+                  <Input
+                    id="universityName"
+                    value={editingProfile.universityName}
+                    onChange={(e) =>
+                      setEditingProfile({
+                        ...editingProfile,
+                        universityName: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="universityName">研究室名</Label>
+                  <Input
+                    id="researchLab"
+                    value={editingProfile.researchLab}
+                    onChange={(e) =>
+                      setEditingProfile({
+                        ...editingProfile,
+                        researchLab: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+                <div className="space-y-2">
                   <Label htmlFor="github">GitHub</Label>
                   <Input
                     id="github"
@@ -462,16 +512,16 @@ export default function ProfileCard() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="twitter">Twitter</Label>
+                  <Label htmlFor="X">X</Label>
                   <Input
-                    id="twitter"
-                    value={editingProfile.social.twitter}
+                    id="X"
+                    value={editingProfile.social.X}
                     onChange={(e) =>
                       setEditingProfile({
                         ...editingProfile,
                         social: {
                           ...editingProfile.social,
-                          twitter: e.target.value,
+                          X: e.target.value,
                         },
                       })
                     }
@@ -623,14 +673,6 @@ export default function ProfileCard() {
             className="w-full"
             onValueChange={setActiveTab}
           >
-            <TabsList className="mb-4 w-full justify-start">
-              <TabsTrigger value="all">すべて</TabsTrigger>
-              <TabsTrigger value="frontend">フロントエンド</TabsTrigger>
-              <TabsTrigger value="backend">バックエンド</TabsTrigger>
-              <TabsTrigger value="database">データベース</TabsTrigger>
-              <TabsTrigger value="devops">DevOps</TabsTrigger>
-              <TabsTrigger value="other">その他</TabsTrigger>
-            </TabsList>
             <TabsContent value={activeTab} className="mt-0">
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
                 {filteredSkills.map((skill) => (
