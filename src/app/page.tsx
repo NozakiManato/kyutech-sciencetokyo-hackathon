@@ -10,6 +10,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import {getAllMembers, getAllAttendanceRecords} from "@/lib/actions"
 import { useRouter } from "next/navigation"
+import Link from "next/link";
+import Header from "@/components/header";
+
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -43,7 +46,9 @@ export default function Home() {
     fetchAdminData()
   }, [router])
   return (
-<div>
+
+<div className="flex min-h-screen flex-col">
+  <Header>
         <TabsContent value="members" className="mt-4">
             <Card>
               <CardHeader>
@@ -97,4 +102,3 @@ export default function Home() {
 
   )
 }
-
