@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import {TabsContent} from "@/components/ui/tabs"
+import {Tabs, TabsContent} from "@/components/ui/tabs"
 import {Search} from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useState, useEffect} from "react"
@@ -48,7 +48,8 @@ export default function Home() {
   return (
 
 <div className="flex min-h-screen flex-col">
-  <Header>
+  <Header />
+   <Tabs defaultValue="members">
         <TabsContent value="members" className="mt-4">
             <Card>
               <CardHeader>
@@ -62,7 +63,7 @@ export default function Home() {
                     className="pl-8"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                  />
+                    />
                 </div>
               </CardHeader>
               <CardContent>
@@ -98,7 +99,9 @@ export default function Home() {
               </CardContent>
             </Card>
       </TabsContent>
-   </div> 
+    </Tabs>
+  </div> 
+
 
   )
 }
