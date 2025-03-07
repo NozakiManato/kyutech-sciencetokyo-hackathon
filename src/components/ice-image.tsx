@@ -24,7 +24,7 @@ export default function IceImage({ opacity, size = 200 }: IceImageProps) {
         }}
       >
         <img
-          src="/ice.png"
+          src="/images/ice.png"
           alt="氷"
           className="w-4/5 h-4/5 object-contain"
           style={{
