@@ -16,6 +16,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { CheckCircle2 } from "lucide-react";
+import { useUser } from "@clerk/nextjs";
 
 // Mock data for other users
 const mockUsers = [
@@ -32,6 +33,7 @@ export default function Home() {
   const [currentMinutes, setCurrentMinutes] = useState(studyTimeMinutes);
   const [userName, setUserName] = useState("You");
   const [showCompletionDialog, setShowCompletionDialog] = useState(false);
+  const { user } = useUser();
 
   const handleStartStudy = () => {
     // Reset the timer to the full time before starting
@@ -66,19 +68,13 @@ export default function Home() {
               {!isStudying ? (
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="name">あなたの名前</Label>
-                    <Input
-                      id="name"
-                      value={userName}
-                      onChange={(e) => setUserName(e.target.value)}
-                      placeholder="名前を入力してください"
-                    />
+                    <p>{user?.fullName}</p>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="time">勉強時間（分）</Label>
                     <Input
                       id="time"
-                      type="number"
+                      type="text"
                       min="0"
                       max="100000"
                       value={studyTimeMinutes}
