@@ -24,6 +24,9 @@ export default function Header() {
       </SignedOut>
       <SignedIn>
         <div className="flex ">
+          <Link href={"/study"}>
+            <Button variant="ghost">勉強ルーム</Button>
+          </Link>
           <Link href={"/dashboard/${user.id}"} className="mr-3">
             <Button variant="ghost">ダッシュボード</Button>
           </Link>
